@@ -11,6 +11,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -99,8 +101,8 @@ public class Lesson extends UnicastRemoteObject implements LessonInterface {
     * @return the title+day+stayrttime of the lesson. 
     *
     */
-  @Override
-  public String toString(){
+  /**@Override
+  public String toString()throws RemoteException{
    return title +" " +day+" " +startTime;   
   }
   /**
@@ -109,17 +111,30 @@ public class Lesson extends UnicastRemoteObject implements LessonInterface {
    * @return 
    */
   @Override
-  public boolean equals (Object other){
+  public boolean equals (LessonInterface lesson)throws RemoteException{
   
-      if (other!= null && other instanceof Lesson){
-      Lesson compare=(Lesson)other;
+      
       
      
-    
-           return title.equals(compare.title)&& day.equals(compare.day)&&startTime.equals(compare.startTime);
+           
+           return title.equals(lesson.getTitle())&& day.equals(lesson.getDay())&&startTime.equals(lesson.getStartTime());
            
        }
-       return false;
-  }
-      
+       
+  
+  
+  @Override
+  public boolean equals (Object lesson){
+ if (lesson!= null && lesson instanceof LessonInterface){
+      LessonInterface compare=(LessonInterface)lesson;
+     try {
+         return this.equals(compare);
+     } catch (RemoteException ex) {
+         Logger.getLogger(Lesson.class.getName()).log(Level.SEVERE, null, ex);
+     }
+}
+ 
+ return false;
+ 
+}
 }

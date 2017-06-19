@@ -14,9 +14,9 @@ import java.util.List;
  * @author Marc
  */
 public interface ScheduleInterface extends Remote{
-   void addLesson(Lesson lesson) throws RemoteException;
-   void removeLesson(Lesson lesson) throws RemoteException;
-   List<Lesson> getAllLessons()throws RemoteException;
-   int getFreeTime(String day)throws RemoteException;
+   void addLesson(LessonInterface lesson) throws RemoteException;
+   void removeLesson(LessonInterface lesson) throws RemoteException;
+   List<LessonInterface> getAllLessons()throws RemoteException;
+   String getFreeTime() throws RemoteException;
    void saveToFile(String filename) throws RemoteException;
 }

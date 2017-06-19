@@ -20,8 +20,8 @@ public class RMIServer  {
             LocateRegistry.createRegistry(1099);
             System.setSecurityManager(new RMISecurityManager());
  
-			   Schedule Hello = new Schedule();			   		   
-			   Naming.rebind("rmi://localhost/Schedule", Hello);
+			   ScheduleInterface schedule = new Schedule();			   		   
+			   Naming.rebind("rmi://localhost/Schedule", schedule);
  
 			   System.out.println("Schedule Server is ready.");
 			   }catch (Exception e) {

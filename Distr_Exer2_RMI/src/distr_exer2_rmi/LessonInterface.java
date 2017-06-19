@@ -20,8 +20,8 @@ public interface LessonInterface extends Remote{
      void setDay(String day)throws RemoteException;
      void setStartTime(LocalTime startTime)throws RemoteException;
      LocalTime getStartTime()throws RemoteException;
-     String toString();
-     boolean equals (Object other);
+     
+     boolean equals (LessonInterface lesson)throws RemoteException;
     
     
     

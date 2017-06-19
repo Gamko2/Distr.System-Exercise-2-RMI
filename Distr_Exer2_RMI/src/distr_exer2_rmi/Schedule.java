@@ -1,8 +1,11 @@
 package distr_exer2_rmi;
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -14,27 +17,36 @@ import java.util.logging.Logger;
 public class Schedule extends UnicastRemoteObject implements ScheduleInterface {
 
     public Schedule() throws RemoteException {}
-    private List<Lesson> lessons = new ArrayList<Lesson>();
+    private List<LessonInterface> lessons = new ArrayList<LessonInterface>();
 
     @Override
-    public void addLesson(Lesson lesson) throws RemoteException {
+    public void addLesson(LessonInterface lesson) throws RemoteException {
         lessons.add(lesson);
     }
 
     @Override
-    public void removeLesson(Lesson lesson) throws RemoteException {
-         lessons.remove(lesson);
+    public void removeLesson(LessonInterface lesson) throws RemoteException {
+         for (int i=0; i<lessons.size();i++){
+             if (lesson.equals(lessons.get(i))){
+                 lessons.remove(i);
+                 return;
+             }
+         }
     }
 
     @Override
-    public List<Lesson> getAllLessons() throws RemoteException {
+    public List<LessonInterface> getAllLessons() throws RemoteException {
         return lessons;
     }
 
     @Override
+    public String getFreeTime() throws RemoteException{
+      return String.valueOf(getFreeTime("Monday")+getFreeTime("Tuesday")+getFreeTime("Wednesday")+getFreeTime("Thursday")+getFreeTime("Friday"));
+    }
+    
     public int getFreeTime(String day) throws RemoteException {
           int lessonCount=0;
-       for (Lesson lesson:lessons){
+       for (LessonInterface lesson:lessons){
            if (lesson.getDay().equals(day)){
                lessonCount++;
            }
@@ -44,23 +56,30 @@ public class Schedule extends UnicastRemoteObject implements ScheduleInterface {
 
     @Override
     public void saveToFile(String filename) throws RemoteException  {
-             FileWriter fw= null;
+     
+         FileOutputStream fileOut= null;
         try {
-            fw = new FileWriter(filename);
-                 try (BufferedWriter bw = new BufferedWriter(fw)) {
-                     for (Lesson lesson: getAllLessons()){
-                         bw.write(lesson.toString());
-                         bw.write("\r\n");
-                     }    }
+            fileOut = new FileOutputStream ("/schedule.ser");
+            ObjectOutputStream out= new ObjectOutputStream (fileOut);
+            out.writeObject(this); 
+            out.close();
+            System.out.printf("Serialized data is saved in /schedule.ser");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                fw.close();
+                fileOut.close();
             } catch (IOException ex) {
                 Logger.getLogger(Schedule.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+      
+        
+           
+        
+       
+     }
     }
 
-}
