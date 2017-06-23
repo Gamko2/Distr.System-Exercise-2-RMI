@@ -10,8 +10,10 @@ import java.rmi.RMISecurityManager;
 import java.rmi.registry.LocateRegistry;
 
 /**
- *
+ *@Version 1.0
  * @author Marc
+ * @since 06.06.2017
+ * The Server creates a new schedule and does the RMI Binding.
  */
 public class RMIServer  {
     public static void main (String[] argv) {

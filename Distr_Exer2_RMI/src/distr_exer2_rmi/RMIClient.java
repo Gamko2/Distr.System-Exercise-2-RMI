@@ -18,8 +18,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- *
+ * @Version 1.0
  * @author Marc
+ * @Since 06.06.2017
+ * The RMICLient can read the given Input and act according to the Input with the correct function.
  */
 public class RMIClient {
     public static LocalTime convertStringtoLocalTime(String time){

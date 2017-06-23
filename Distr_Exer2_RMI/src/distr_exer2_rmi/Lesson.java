@@ -18,8 +18,8 @@ import java.util.logging.Logger;
  *
  * @author Marc
  * @version 1.0
- * @since 2017-05-16
- * The class Lesson provides all necessary attributes and functions for the lesson class.
+ * @since 06.06.2017
+ * The class Lesson provides all necessary attributes and implements the functions from the LessonInterface.
  */
 
 public class Lesson extends UnicastRemoteObject implements LessonInterface {

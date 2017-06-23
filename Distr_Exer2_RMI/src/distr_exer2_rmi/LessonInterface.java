@@ -10,8 +10,10 @@ import java.rmi.RemoteException;
 import java.time.LocalTime;
 
 /**
- *
+ * Version 1.0
  * @author Marc
+ * @since 06.06.2017
+ * This Interface provides all the functions the Lesson needs to implement later
  */
 public interface LessonInterface extends Remote{
     void setTitle(String title)throws RemoteException;

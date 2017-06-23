@@ -10,8 +10,10 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 /**
- *
+ *@version 1.0
  * @author Marc
+ * @since 06.06.2017
+ * This Interface provides the functions that are needed from the schedule
  */
 public interface ScheduleInterface extends Remote{
    void addLesson(LessonInterface lesson) throws RemoteException;
